@@ -114,3 +114,17 @@ let couple (x :'a) (y :'b) :'a * 'b = (x, y)
 
 let comp1 (c :'a*'b) :'a = let (i, j) = c in i
 let comp2 (c :'a*'b) :'b = let (i, j) = c in j
+
+let appli (f :'a -> 'b) (x :'a) :'b = f x
+
+let compose (f :'a -> 'b) (g :'c -> 'a) :('c -> 'b) = fun x -> f (g(x))
+
+let carre (f :'a -> 'a) :'a -> 'a = compose f f
+
+let rec itere (f :'a -> 'a) (n :int) :'a -> 'a =
+    if n = 0 then id
+    else compose f (itere f (n - 1))
+
+let f_ou_id (f :'a -> 'a) (b :bool) :'a -> 'a =
+    if b then fun x -> f(x)
+    else fun x -> x
