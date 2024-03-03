@@ -128,3 +128,15 @@ let rec itere (f :'a -> 'a) (n :int) :'a -> 'a =
 let f_ou_id (f :'a -> 'a) (b :bool) :'a -> 'a =
     if b then fun x -> f(x)
     else fun x -> x
+
+
+let curry (f :'a * 'b -> 'c) :'a -> 'b -> 'c = fun x y -> f (x, y)
+
+let uncurry (f :'a -> 'b -> 'c) :('a * 'b) -> 'c = fun (x,y) -> f x y
+
+let somme1 (a :int) (b :int) :int = a - b
+
+let somme2 (a, b :int * int) :int = a - b
+
+
+let transfo (h :'a * 'b -> 'c -> 'd) :'a -> 'b * 'c -> 'd = fun x (y, z) -> h (x, y) z
