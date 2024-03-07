@@ -61,7 +61,7 @@ let rec pgcd (a :int) (b :int) :int =
         in pgcd b r
 
 (* L'algorithme trouvé ci dessus est en fait récursif terminal *)
-let rec pgcd_rt = pgcd
+let pgcd_rt = pgcd
 
 
 let div_pos_rt (a :int) (b :int) =
