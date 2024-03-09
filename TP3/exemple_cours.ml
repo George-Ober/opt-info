@@ -64,9 +64,11 @@ let test_nom :unit =
 let affiche_carte (c :carte) :unit = print_string(nom_carte(c) ^ "\n")
 
 let valeur_entier (v :valeur) :int = 
-    (* Renvoie une valeur entière d'un objet v de type :valeur, ou une erreur si la valeur est aberrante, avec la convention qu'un as a pour valeur `Tete "As"`*)
+    (* Renvoie une valeur entière 2..14 d'un objet v de type :valeur, ou une erreur si la valeur est aberrante, avec la convention qu'un As a pour valeur `Tete "As"`*)
     match v with
-    | Brele (k) -> if k >= 2 && k <= 10 then k else failwith "Probleme de valeur"
+    (* | Brele k -> if k >= 2 && k <= 10 then k else failwith "Probleme de valeur" *)
+    | Brele k when (k >= 2 && k <= 10) -> k
+    | Brele _ -> failwith "Probleme de Valeur"
     | Tete nom -> let k = 
 	match nom with
 	| "Valet" -> 11
