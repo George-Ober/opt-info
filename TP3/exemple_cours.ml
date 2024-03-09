@@ -10,6 +10,8 @@ type couleur =
  | Trefle
  | Carreau
 
+(* Note: il serait intéressant de définir les constructeurs avec des contraintes sur les valeurs possibles pour Brele et Tete *)
+
 type carte = couleur * valeur
 let dame_de_coeur :carte = (Coeur, Tete("Dame"))
 let trois_de_pique :carte = (Pique, Brele(3))
@@ -21,12 +23,6 @@ let est_rouge (c :carte) : bool =
     let (clr, _) = c in
     clr = Coeur || clr = Carreau
 
-let test_est_rouge : unit =
-    assert(est_rouge dame_de_coeur);
-    assert(not(est_rouge trois_de_pique));
-    assert(not(est_rouge valet_de_pique));
-    assert(not(est_rouge six_de_trefle))
-
 let est_rouge_2 (c :carte) :bool = 
     (* Teste si c est rouge, variante avec le filtrage *)
     let (clr, _) = c in
@@ -34,11 +30,14 @@ let est_rouge_2 (c :carte) :bool =
 	| Coeur | Carreau -> true
 	| _ -> false
 
-let test_est_rouge_2 : unit =
-    assert(est_rouge_2 dame_de_coeur);
-    assert(not(est_rouge_2 trois_de_pique));
-    assert(not(est_rouge_2 valet_de_pique));
-    assert(not(est_rouge_2 six_de_trefle))
+let test_est_rouge (f :carte -> bool): unit =
+    (* Factorisation des tests pour les deux fonctions précédentes *)
+    assert(f dame_de_coeur);
+    assert(f (Carreau, Brele(4)));
+    assert(f (Coeur, Brele(8)));
+    assert(not(f trois_de_pique));
+    assert(not(f valet_de_pique));
+    assert(not(f six_de_trefle))
 
 let nom_carte (c :carte) :string =
     (* Calcule le nom complet d'une carte sous forme d'une chaine de caractère *)
@@ -87,13 +86,14 @@ let test_valeur_entier :unit =
 
 let bataille (a :carte) (b :carte) :bool =
     (* Teste si la carte a l'emporte sur la carte b en convertissant la valeur de la carte avec la fonction `valeur_entier` qui définit l'ordre 2..10 < Valet < Dame < Roi < As
-    Les cartes sont donc supposées exister avec la convention qu'un as de n'importe quelle couleur a pour valeur `Tete "As"` *)
+    Les cartes sont donc supposées exister avec la convention qu'un As de n'importe quelle couleur a pour valeur `Tete "As"` *)
     let (_, val_a) = a in
     let (_, val_b) = b in
     let inta :int = valeur_entier val_a in
     let intb :int = valeur_entier val_b in
     if inta = intb then
 	failwith "Erreur de valeur identique"
+	(* Il pourrait aussi être pertinent d'introduire un ordre des couleurs e.g. : Pique > Coeur > Trefle > Carreau *)
     else inta > intb
 
 let test_bataille :unit =
