@@ -1,6 +1,6 @@
-let rec benout (a :int) (b :int) =
+let rec bezout (a :int) (b :int) =
     if b == 0 
         then 1 , 0 
     else 
-        let u, v = euclide b (a mod b) in 
+        let u, v = bezout b (a mod b) in 
         v, u - (a / b) * v
