@@ -6,6 +6,8 @@ Je garde aussi mes notes de cours à [un autre endroit](https://george-ober.gith
 
 ## Sujets de TP en question
 
-- [TP1](https://cahier-de-prepa.fr/mpi-fermat/download?id=322) 
-- [TP2](https://cahier-de-prepa.fr/mpi-fermat/download?id=324) 
-- [TP3](https://cahier-de-prepa.fr/mpi-fermat/download?id=325) 
+- [TP1](https://cahier-de-prepa.fr/mpi-fermat/download?id=322)
+- [TP2](https://cahier-de-prepa.fr/mpi-fermat/download?id=324)
+- [TP3](https://cahier-de-prepa.fr/mpi-fermat/download?id=325)
+- [TP4](https://cahier-de-prepa.fr/mpi-fermat/download?id=335)
+- [TP5](https://cahier-de-prepa.fr/mpi-fermat/download?id=369)
