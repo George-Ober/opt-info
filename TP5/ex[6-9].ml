@@ -1,4 +1,5 @@
 (* George Ober MPSI1 231 *)
+(* Contient exercices 6-9 *)
 
 type 'a arbre_g =
     | Nd of 'a * ('a arbre_g) list
@@ -28,8 +29,8 @@ let rec hauteur (arbre :'a arbre_g) :int =
 and hauteur_l (l :('a arbre_g) list) :int =
     (* Calcule le max des hauteurs des arbres de l *)
     match l with
-    |[] -> 0
-    |a::q -> max (hauteur a) (hauteur_l q)
+    | [] -> 0
+    | a::q -> max (hauteur a) (hauteur_l q)
 
 let test_hauteur :unit =
     assert(hauteur a1 = 0); (* Arbre constitué seulement d'une feuille *)
@@ -120,11 +121,16 @@ let test_est_en_feuille :unit =
     assert(est_en_feuille a5 'C')           (* Une autre feuille pour le test *)
 
 
-let rec tout_montrer (arbre :'a arbre_g) (affichage :'a -> unit) :unit =
-    match arbre with
-    | Nd(a, []) -> affichage a
-    | Nd(a, l) -> (tout_liste l affichage); affichage a; print_newline()
-and tout_liste (l_arbre :('a arbre_g) list) (affichage :'a -> unit) :unit =
-    match l_arbre with
-    | [] -> ()
-    | a :: q -> tout_liste q affichage; tout_montrer a affichage
+let affiche_par_niveaux (arbre :'a arbre_g) (trans :'a -> string) :unit =
+    let rec vider_file (file :('a arbre_g) list) (fils :('a arbre_g) list) :unit =
+        (* Garde en mémoire une file des fils, ainsi qu'une file active. lorsque la file active est terminée, cela veut dire que la ligne a été entièrement traitée, donc retour à la ligne + la file fils devient la file active *)
+        match file with
+        | [] -> if not (fils = []) then (print_newline(); vider_file fils []) else ()
+        | Nd(e, []) :: q -> print_string(trans(e) ^ " "); vider_file q fils
+        | Nd(e, b) :: q -> print_string(trans(e) ^ " "); vider_file q (concatener_file fils b)
+    and concatener_file (file_orig :'b list) (a_enfiler :'b list) =
+        (* Ajoute a_enfiler dans l'ordre préservé à la fin de file_orig *)
+        match file_orig with
+        | [] -> a_enfiler
+        | tete :: queue -> tete :: (concatener_file queue a_enfiler)
+    in vider_file [arbre] []
